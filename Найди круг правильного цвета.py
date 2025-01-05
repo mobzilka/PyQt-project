@@ -1,9 +1,8 @@
 import sys
-import random
 from random import randint
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QLabel, QPushButton
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QPainter, QBrush, QPen, QPixmap, QFont
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton
+from PyQt5 import QtGui
+from PyQt5.QtGui import QPainter, QPen, QFont
 from PyQt5.QtCore import Qt, QPoint, QRect, QSize
 
 
@@ -15,29 +14,20 @@ class Game(QWidget):
     def initUI(self):
         self.setGeometry(600, 200, 700, 700)
         self.setWindowTitle('Find a right color')
-
         self.objectstatustext = QLabel('', self)
         self.objectstatustext.setFont(QFont("Calibri", 12))
         self.objectstatustext.move(119, 23)
-
         self.objecttext = QLabel('', self)
         self.objecttext.setFont(QFont("Calibri", 12))
         self.objecttext.move(120, 7)
-
         self.button = QPushButton('start', self)
         self.button.setFont(QFont("Calibri", 14))
         self.button.setGeometry(10, 10, 100, 30)
         self.button.clicked.connect(lambda: self.button_clicked())
-
         self.rectR = QRect()
         self.rectG = QRect()
         self.rectB = QRect()
-
         self.show()
-
-        # self.positionR = QPoint()
-        # self.positionG = QPoint()
-        # self.positionB = QPoint()
 
     def button_clicked(self):
         self.objectstatustext.setText('Состояние задания: не выполнено')
@@ -66,11 +56,9 @@ class Game(QWidget):
             painterR = QPainter(self)
             painterR.setPen(QPen(Qt.red, 5))
             painterR.drawEllipse(self.rectR)
-
             painterG = QPainter(self)
             painterG.setPen(QPen(Qt.green, 5))
             painterG.drawEllipse(self.rectG)
-
             painterB = QPainter(self)
             painterB.setPen(QPen(Qt.blue, 5))
             painterB.drawEllipse(self.rectB)
@@ -82,26 +70,21 @@ class Game(QWidget):
                     < self.rectR.width()
             ):
                 self.objectstatustext.setText('Состояние задания: выполнено')
-                # self.objectstatustext.resize(500, 30)
-                # self.objectstatustext.move(120, 17)
-
+                self.objectstatustext.resize(500, 19)
         elif self.right_color == 2:
             if (
                     2 * QtGui.QVector2D(event.pos() - self.rectG.center()).length()
                     < self.rectG.width()
             ):
                 self.objectstatustext.setText('Состояние задания: выполнено')
-                # self.objectstatustext.resize(500, 30)
-                # self.objectstatustext.move(120, 17)
-
+                self.objectstatustext.resize(500, 19)
         else:
             if (
                     2 * QtGui.QVector2D(event.pos() - self.rectB.center()).length()
                     < self.rectB.width()
             ):
                 self.objectstatustext.setText('Состояние задания: выполнено')
-                # self.objectstatustext.resize(500, 30)
-                # self.objectstatustext.move(120, 17)
+                self.objectstatustext.resize(500, 19)
 
 
 App = QApplication(sys.argv)
